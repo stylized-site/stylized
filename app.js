@@ -1,69 +1,43 @@
-console.log("APP.JS LOADED");
+const gender = document.getElementById("gender");
+const style = document.getElementById("style");
+const budget = document.getElementById("budget");
+const results = document.getElementById("results");
 
-const looks = [
-  {
-    gender: "Мужской",
-    style: "Streetwear",
-    budget: 10000,
-    items: {
-      "Футболка": "https://example.com",
-      "Штаны": "https://example.com",
-      "Кроссовки": "https://example.com",
-      "Куртка": "https://example.com"
-    }
-  },
-  {
-    gender: "Женский",
-    style: "Y2K",
-    budget: 15000,
-    items: {
-      "Топ": "https://example.com",
-      "Юбка": "https://example.com",
-      "Обувь": "https://example.com"
-    }
-  }
-];
-
-const styleSelect = document.getElementById("styleSelect");
-const container = document.getElementById("looksContainer");
-
-const styles = [...new Set(looks.map(l => l.style))];
-styles.forEach(s => {
-  const opt = document.createElement("option");
-  opt.value = s;
-  opt.textContent = s;
-  styleSelect.appendChild(opt);
-});
-
-function applyFilter() {
-  const budget = document.getElementById("budgetSelect").value;
-  const style = styleSelect.value;
-
-  const filtered = looks.filter(l =>
-    (budget === "all" || l.budget <= budget) &&
-    (style === "all" || l.style === style)
-  );
-
-  render(filtered);
+function loadOptions() {
+  budgets.forEach(b => {
+    let o = document.createElement("option");
+    o.value = b;
+    o.textContent = до ${b}₽;
+    budget.appendChild(o);
+  });
+  updateStyles();
 }
 
-function render(data) {
-  container.innerHTML = "";
-  if (data.length === 0) {
-    container.innerHTML = "<p>Нет луков</p>";
-    return;
-  }
-
-  data.forEach(l => {
-    let html = `<div class="card">
-      <h3>${l.gender} — ${l.style}</h3>
-      <p>Бюджет: до ${l.budget}₽</p>`;
-    for (let i in l.items) {
-      html += <p><a href="${l.items[i]}" target="_blank">${i}</a></p>;
-    }
-    html += "</div>";
-    container.innerHTML += html;
+function updateStyles() {
+  style.innerHTML = "";
+  styles[gender.value].forEach(s => {
+    let o = document.createElement("option");
+    o.value = s;
+    o.textContent = s;
+    style.appendChild(o);
   });
 }
 
-applyFilter();
+gender.onchange = updateStyles;
+
+function filterLooks() {
+  results.innerHTML = "";
+  looks.filter(l =>
+    l.gender === gender.value &&
+    l.style === style.value &&
+    l.budget <= budget.value
+  ).forEach(l => {
+    let html = <div class="card"><h3>${l.style}</h3>;
+    for (let i in l.items)
+      html += <p><a href="${l.items[i]}" target="_blank">${i}</a></p>;
+    html += "</div>";
+    results.innerHTML += html;
+  });
+}
+
+loadOptions();
