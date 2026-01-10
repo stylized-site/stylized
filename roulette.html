@@ -11,14 +11,15 @@
   <h1>STYLIZED ROULETTE</h1>
 </header>
 
-<div class="roulette-container">
-  <div class="wheel" id="wheel"></div>
-  <div class="arrow">▲</div>
-</div>
+<section class="roulette-container">
+  <div class="wheel-wrapper">
+    <div id="wheel"></div>
+    <div class="pointer"></div>
+  </div>
 
-<button onclick="spin()">Крутить (10₽)</button>
-
-<p id="result"></p>
+  <button onclick="spin()">Крутить за 10₽</button>
+  <p id="result">Попробуй удачу</p>
+</section>
 
 <script src="roulette.js"></script>
 </body>
