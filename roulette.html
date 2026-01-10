@@ -1,6 +1,25 @@
-<h2>Рулетка STYLIZED</h2>
-<p>10 ₽ за попытку</p>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>STYLIZED — Рулетка</title>
+  <link rel="stylesheet" href="roulette.css">
+</head>
+<body>
 
-<button>Крутить</button>
+<header>
+  <h1>STYLIZED ROULETTE</h1>
+</header>
 
-<a href="index.html">Назад</a>
+<div class="roulette-container">
+  <div class="wheel" id="wheel"></div>
+  <div class="arrow">▲</div>
+</div>
+
+<button onclick="spin()">Крутить (10₽)</button>
+
+<p id="result"></p>
+
+<script src="roulette.js"></script>
+</body>
+</html>
